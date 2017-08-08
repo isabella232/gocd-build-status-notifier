@@ -11,8 +11,8 @@ public interface Provider {
 
     public String pollerPluginId();
 
-    public void updateStatus(String url, PluginSettings pluginSettings, String branch, String revision, String pipelineStage,
-                             String result, String trackbackURL) throws Exception;
+    public void updateStatus(PluginSettings pluginSettings, String branch, String revision, String pipelineStage,
+                             String result, String trackbackURL, String repository) throws Exception;
 
     public List<Map<String, Object>> validateConfig(Map<String, Object> fields);
 

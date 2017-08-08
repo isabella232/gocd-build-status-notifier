@@ -149,7 +149,7 @@ public class BuildStatusNotifierPlugin implements GoPlugin {
                 Map material = (Map) materialRevision.get("material");
                 if (isMaterialOfType(material, provider.pollerPluginId())) {
                     Map materialConfiguration = (Map) material.get("scm-configuration");
-                    String url = (String) materialConfiguration.get("url");
+                    String repository = (String) materialConfiguration.get("repository");
 
                     List<Map> modifications = (List<Map>) materialRevision.get("modifications");
                     String revision = (String) modifications.get(0).get("revision");
@@ -157,9 +157,9 @@ public class BuildStatusNotifierPlugin implements GoPlugin {
                     String prId = (String) modificationData.get("PR_ID");
 
                     try {
-                        provider.updateStatus(url, pluginSettings, prId, revision, pipelineStage, result, trackbackURL);
+                        provider.updateStatus(pluginSettings, prId, revision, pipelineStage, result, trackbackURL, repository);
                     } catch (Exception e) {
-                        LOGGER.error(String.format("Error occurred. Could not update build status - URL: %s Revision: %s Build: %s Result: %s", url, revision, pipelineInstance, result), e);
+                        LOGGER.error(String.format("Error occurred. Could not update build status - Repository: %s Revision: %s Build: %s Result: %s", repository, revision, pipelineInstance, result), e);
                     }
                 }
             }

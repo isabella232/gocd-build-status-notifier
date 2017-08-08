@@ -31,9 +31,8 @@ public class GitHubProvider extends DefaultProvider {
     }
 
     @Override
-    public void updateStatus(String url, PluginSettings pluginSettings, String prIdStr, String revision, String pipelineStage,
-                             String result, String trackbackURL) throws Exception {
-        String repository = getRepository(url);
+    public void updateStatus(PluginSettings pluginSettings, String prIdStr, String revision, String pipelineStage,
+                             String result, String trackbackURL, String repository) throws Exception {
         GHCommitState state = getState(result);
 
         String endPointToUse = pluginSettings.getEndPoint();
