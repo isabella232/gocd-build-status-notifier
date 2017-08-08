@@ -65,6 +65,14 @@
             </properties>
         </profile>
         <profile>
+            <id>localytics.pr.status</id>
+            <properties>
+                <plugin.name>localytics-pr-status</plugin.name>
+                <resource.directory>src/main/resources/localytics</resource.directory>
+                <maven.resources.overwrite>true</maven.resources.overwrite>
+            </properties>
+        </profile>
+        <profile>
             <id>stash.pr.status</id>
             <properties>
                 <plugin.name>stash-pr-status</plugin.name>
