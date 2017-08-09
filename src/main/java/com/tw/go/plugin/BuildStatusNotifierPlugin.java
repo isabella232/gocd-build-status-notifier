@@ -152,15 +152,20 @@ public class BuildStatusNotifierPlugin implements GoPlugin {
                     String repository = (String) materialConfiguration.get("repository");
 
                     List<Map> modifications = (List<Map>) materialRevision.get("modifications");
-                    String revision = (String) modifications.get(0).get("revision");
                     Map modificationData = (Map) modifications.get(0).get("data");
                     String prId = (String) modificationData.get("PR_ID");
+                    String revision = (String) modificationData.get("GIT_SHA");
 
+                    LOGGER.info(String.format("Calling update status prId: %s revision: %s pipelineStage: %s, result: %s, trackbackUrl: %s, repository: %s", prId, revision, pipelineStage, result, trackbackURL, repository));
                     try {
                         provider.updateStatus(pluginSettings, prId, revision, pipelineStage, result, trackbackURL, repository);
                     } catch (Exception e) {
                         LOGGER.error(String.format("Error occurred. Could not update build status - Repository: %s Revision: %s Build: %s Result: %s", repository, revision, pipelineInstance, result), e);
                     }
+                } else {
+                    Object sType = material.get("type");
+                    if (sType == null) sType = "null";
+                    LOGGER.info("Skipped material " + sType);
                 }
             }
 
